@@ -1,18 +1,27 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+/* eslint-disable no-unused-vars */
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+/* eslint-enable no-unused-vars */
 
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
+  name: "Home",
+  methods: {
+    ...mapActions(["loadPlaylistFromIndex"])
+  },
+  mounted() {
+    // user.all().then(r => console.log(r.data))
+    // user.login('php@html.js.cn', '111111').then(
+    //   () => {
+    //     user.info().then(r => console.log(r))
+    //   }
+    // )
+
+    // this.loadPlaylistFromIndex("mv");
   }
-}
+};
 </script>
