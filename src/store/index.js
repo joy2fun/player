@@ -11,7 +11,6 @@ export default new Vuex.Store({
     'directoryList' : [],
     'fileList': [],
     'currentPath': '', // navigated path
-    'currentPlayPath': '',
   },
   getters: {
     navPath: state => {
