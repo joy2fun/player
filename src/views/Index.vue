@@ -1,9 +1,10 @@
 <template>
   <div class="index">
-    <div id="directory-nav">
-      <span> <strong @click="loadIndex('')">Index</strong> </span>
+
+    <div id="directory-nav" class="breadcrumb">
+      <span> <a @click="loadIndex('')">Index</a> </span>
       <span v-for="(item, index) in navPath" :key="index"> /
-        <strong @click="loadIndex(item.path)">{{ item.name }}</strong>
+        <a @click="loadIndex(item.path)">{{ item.name }}</a>
       </span>
     </div>
     <directory-list />
@@ -35,3 +36,17 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.breadcrumb {
+  line-height: 3;
+  font-size: 1.1rem;
+  background: #eee8d5;
+  padding-left: 0.5em;
+  color: #999;
+}
+.breadcrumb a {
+  color: #8d6c00;
+  cursor: pointer;
+}
+</style>

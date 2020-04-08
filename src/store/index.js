@@ -10,7 +10,8 @@ export default new Vuex.Store({
     'playlist' : [],
     'directoryList' : [],
     'fileList': [],
-    'currentPath': '',
+    'currentPath': '', // navigated path
+    'currentPlayPath': '',
   },
   getters: {
     navPath: state => {

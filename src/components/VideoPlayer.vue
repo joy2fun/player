@@ -19,8 +19,7 @@ export default {
   data() {
     return {
       videoOptions: {
-        width: 800,
-        height: 600,
+        fluid: true,
         autoplay: true,
         controls: true,
         sources: [],

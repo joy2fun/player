@@ -1,11 +1,19 @@
 <template>
   <div id="app">
-    <video-player />
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/index">Index</router-link>
-    </div>
-    <router-view/>
+    <el-row :gutter="20">
+      <el-col :span="14">
+        <div class="grid-content"><video-player /></div>
+      </el-col>
+      <el-col :span="10">
+        <div class="grid-content">
+          <div id="nav">
+            <router-link to="/">Home</router-link> |
+            <router-link to="/index">Index</router-link>
+          </div>
+          <router-view/>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -21,9 +29,11 @@ export default {
 
 <style>
 body {
-  background: #fea;
+  color: #333;
+  background: #fdf6e3;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-textarea:focus, input:focus, video:focus{
+textarea:focus, input:focus, video:focus, button:focus{
     outline: none;
 }
 </style>
