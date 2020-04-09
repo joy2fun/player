@@ -3,7 +3,7 @@
     <a class="item"
       v-for="(item, index) in fileList"
       :key="index"
-      @click="playListFromIndex(index)">
+      @click="playListFromIndex(index, item.src)">
       <i
         :class="{
           'blink': player.src() === item.src,
@@ -24,9 +24,18 @@ export default {
   },
   methods: {
     ...mapMutations(["updatePlaylist"]),
-    playListFromIndex(i) {
-      this.updatePlaylist(this.fileList)
-      this.player.playlist.currentItem(i)
+    playListFromIndex(i, src) {
+      if (this.player.src() == src) {
+        if (this.player.paused()) {
+          this.player.play()
+        } else {
+          this.player.pause()
+        }
+      } else {
+        this.updatePlaylist(this.fileList)
+        this.player.playlist.currentItem(i)
+        this.player.play()
+      }
     }
   }
 }

@@ -41,6 +41,23 @@ export default {
     );
     player.playlist([]);
     player.playlist.autoadvance(0);
+    player.on('play', () => {
+      if(player.currentType().indexOf('audio') === 0) {
+        player.poster('/images/poster-audio.jpg')
+      }
+      if (player.videoHeight() > player.videoWidth()) {
+        let width = player.currentWidth()
+        player.fluid(false)
+        player.width(width)
+        player.height(width*.75)
+      } else {
+        player.fluid(true)
+      }
+
+    })
+    player.on('resize', () => {
+
+    })
     this.setupPlayer(player);
     window.player = player;
   },
