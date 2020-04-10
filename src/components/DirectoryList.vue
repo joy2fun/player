@@ -41,7 +41,4 @@ export default {
   background: #eee8d5;
   opacity: .8;
 }
-.folder i {
-  color: #c29503;
-}
 </style>

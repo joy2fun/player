@@ -10,16 +10,19 @@ export default new Vuex.Store({
     'playlist' : [],
     'directoryList' : [],
     'fileList': [],
-    'currentPath': '', // navigated path
+    'replayCurrent': false,
+    'shuffledList': false,
+    'playSpeed': 1,
+    'currentNavPath': '',
   },
   getters: {
     navPath: state => {
-      if (state.currentPath === '') {
+      if (state.currentNavPath === '') {
         return []
       }
 
       let cur = ''
-      return state.currentPath.split('/').map(item => {
+      return state.currentNavPath.split('/').map(item => {
         return {
           path: cur += cur ? '/' + item : item,
           name: item,
@@ -28,22 +31,66 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    setupPlayer(state, p) {
-      state.player = p
+    setupPlayer(state, player) {
+      player.on('ended', () => {
+        if (state.replayCurrent) {
+          if (player.playlist.autoadvance_.delay === null) {
+            player.play()
+          }
+        }
+      })
+      player.on('loadedmetadata', () => {
+        if (player.videoHeight() > player.videoWidth()) {
+          let width = player.currentWidth()
+          player.fluid(false)
+          player.width(width)
+          player.height(width*.75)
+        } else {
+          player.fluid(true)
+        }
+        if(player.currentType().indexOf('audio') === 0) {
+          player.poster('/images/poster-audio.jpg')
+        }
+      })
+      state.player = player
     },
-    updatePlaylist(state, data) {
+    setReplayCurrent(state, v) {
+      state.replayCurrent = v
+      state.player.playlist.autoadvance(v ? null : 0)
+    },
+    shufflePlaylist(state, v) {
+      state.shuffledList = v
+      if (v) {
+        state.player.playlist.shuffle()
+      } else {
+        let index = state.playlist.findIndex(i => i.src === state.player.src())
+        state.player.playlist(state.playlist.map(item => {
+          return {
+            sources : [item]
+          }
+        }), index > -1 ? index : 0)
+      }
+    },
+    updatePlaylist(state, {data, index}) {
       state.playlist = data
       state.player.playlist(data.map(item => {
         return {
           sources : [item]
         }
-      }))
+      }), index)
+      if (state.shuffledList) {
+        state.player.playlist.shuffle()
+      }
     },
-    updateIndex(state, {dirs, files, path}) {
-      state.currentPath = path.replace(/^\/+/, '')
+    updateNavIndex(state, {dirs, files, path}) {
+      state.currentNavPath = path.replace(/^\/+/, '')
       state.directoryList = dirs
       state.fileList = files
     },
+    updatePlaySpeed(state, v) {
+      state.playSpeed = v
+      state.player.playbackRate(v)
+    }
   },
   actions: {
     loadPlaylistFromIndex({ commit }, path) {
@@ -53,7 +100,7 @@ export default new Vuex.Store({
     },
     loadIndex({ commit }, path) {
       common.index(path).then(r => {
-        commit('updateIndex', {
+        commit('updateNavIndex', {
           dirs: r.data.lists,
           files: r.data.files,
           path

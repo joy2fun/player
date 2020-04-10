@@ -32,9 +32,10 @@ export default {
           this.player.pause()
         }
       } else {
-        this.updatePlaylist(this.fileList)
-        this.player.playlist.currentItem(i)
-        this.player.play()
+        this.updatePlaylist({
+          data: this.fileList,
+          index: i
+        })
       }
     }
   }

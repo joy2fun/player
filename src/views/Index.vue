@@ -25,13 +25,13 @@ export default {
     FileList
   },
   mounted() {
-    this.loadIndex(this.currentPath)
+    this.loadIndex(this.currentNavPath)
   },
   methods: {
     ...mapActions(["loadIndex"]),
   },
   computed: {
-    ...mapState(["currentPath"]),
+    ...mapState(["currentNavPath"]),
     ...mapGetters(["navPath"]),
   },
 }

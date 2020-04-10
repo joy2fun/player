@@ -1,15 +1,11 @@
 <template>
   <div id="app">
-    <el-row :gutter="20">
+    <el-row :gutter="12">
       <el-col :span="14">
         <div class="grid-content"><video-player /></div>
       </el-col>
       <el-col :span="10">
         <div class="grid-content">
-          <div id="nav">
-            <router-link to="/">Home</router-link> |
-            <router-link to="/index">Index</router-link>
-          </div>
           <router-view/>
         </div>
       </el-col>
