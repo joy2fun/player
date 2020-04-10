@@ -101,7 +101,6 @@ export default {
       this.$refs.videoPlayer,
       this.videoOptions,
       function onPlayerReady() {
-        console.log("onPlayerReady", this)
       }
     );
     if (! this.replayCurrent) {
