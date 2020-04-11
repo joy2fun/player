@@ -1,6 +1,15 @@
 <template>
   <div id="app">
-    <el-row :gutter="12">
+    <el-row>
+      <el-col :span="24">
+        <player-control style="float:left; height: 50px; ovflow:hidden;" />
+        <div id="nav" style="float:right; text-align:right; line-height:50px;">
+          <router-link to="/">Home</router-link> |
+          <router-link to="/index">Index</router-link>
+        </div>
+      </el-col>
+    </el-row>
+    <el-row :gutter="10">
       <el-col :span="14">
         <div class="grid-content"><video-player /></div>
       </el-col>
@@ -15,10 +24,12 @@
 
 <script>
 import VideoPlayer from "@/components/VideoPlayer.vue";
+import PlayerControl from "@/components/PlayerControl.vue";
 
 export default {
   components: {
-    VideoPlayer
+    VideoPlayer,
+    PlayerControl,
   },
 }
 </script>
