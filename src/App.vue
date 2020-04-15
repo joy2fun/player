@@ -2,21 +2,33 @@
   <div id="app">
     <el-row>
       <el-col :span="24">
-        <player-control style="float:left; height: 50px; ovflow:hidden;" />
-        <div id="nav" style="float:right; text-align:right; line-height:50px;">
-          <router-link to="/">Home</router-link> |
-          <router-link to="/index">Index</router-link>
+        <div id="nav" style="float:left; text-align:right; line-height:40px;">
+          <router-link to="/">
+            <el-button
+              icon="el-icon-s-home"
+              size="mini"
+              circle>
+            </el-button>
+          </router-link> &nbsp;
+          <router-link to="/index">
+            <el-button
+              icon="el-icon-folder-opened"
+              size="mini"
+              circle>
+            </el-button>
+          </router-link>
         </div>
+        <player-control style="float:right; height: 50px; ovflow:hidden;" />
       </el-col>
     </el-row>
     <el-row :gutter="10">
-      <el-col :span="14">
-        <div class="grid-content"><video-player /></div>
-      </el-col>
-      <el-col :span="10">
+      <el-col :span="8" >
         <div class="grid-content">
           <router-view/>
         </div>
+      </el-col>
+      <el-col :span="16">
+        <div class="grid-content"><video-player /></div>
       </el-col>
     </el-row>
   </div>
@@ -36,11 +48,17 @@ export default {
 
 <style>
 body {
-  color: #333;
+  color: #B58900;
   background: #fdf6e3;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 textarea:focus, input:focus, video:focus, button:focus{
     outline: none;
+}
+.nav {
+  line-height: 3;
+  font-size: 1.1rem;
+  background: #eee8d5;
+  padding-left: 0.5em;
 }
 </style>

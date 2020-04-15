@@ -1,16 +1,16 @@
 <template>
   <div id="files" class="files">
-    <a class="item"
+    <el-button class="item"
+      :class="{
+        'current': player.src() === item.src,
+      }"
+      @click="playListFromIndex(index, item.src)"
       v-for="(item, index) in fileList"
       :key="index"
-      @click="playListFromIndex(index, item.src)">
-      <i
-        :class="{
-          'blink': player.src() === item.src,
-        }"
-        class="el-icon-right"></i>
-      <span> {{item.name}} </span>
-    </a>
+      type="text"
+      size="small"
+      plain>{{ item.name }}
+    </el-button>
   </div>
 </template>
 
@@ -48,33 +48,24 @@ export default {
   height: 480px;
   overflow-y: scroll;
 }
-.item {
+.current {
+  background-color: #fcfcfc !important;
+}
+
+.item, .item:hover, .item:focus {
   display: block;
-  line-height: 2.5;
+  line-height: 2;
   border-top: 1px solid #eee8d5;
   border-bottom: 1px solid #eee8d5;
+  border-left: none;
+  border-right: none;
   margin-top: -1px;
-  cursor: pointer;
+  padding-left: 10px;
+  margin-left: 0;
+  width: 100%;
+  text-align: left;
   color: #555;
   white-space:nowrap;
 }
-.item:hover {
-  background: #eee8d5;
-  opacity: .8;
-}
-.item i {
-  opacity: 0;
-}
-.item i.current {
-  opacity: .9;
-}
-.item i.blink {
-  opacity: .9;
-  animation: blinker 1s linear infinite;
-}
-@keyframes blinker {
-  90% {
-    opacity: 0;
-  }
-}
+
 </style>

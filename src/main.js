@@ -16,6 +16,8 @@ import {
   Row,
   Col,
   Slider,
+  Link,
+  Input,
 } from 'element-ui';
 
 import '@/assets/style/theme/index.css'
@@ -33,6 +35,8 @@ Vue.use(FormItem);
 Vue.use(Row);
 Vue.use(Col);
 Vue.use(Slider);
+Vue.use(Link);
+Vue.use(Input);
 
 Vue.config.productionTip = false
 

@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    'loggedIn': false,
     'player': null,
     'playlist' : [],
     'directoryList' : [],
@@ -31,6 +32,12 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    setLoggedIn(state, v) {
+      state.loggedIn = v
+      if (! v) {
+        sessionStorage.setItem('token', '')
+      }
+    },
     setupPlayer(state, player) {
       player.on('ended', () => {
         if (state.replayCurrent) {

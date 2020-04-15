@@ -11,20 +11,6 @@
         </el-form-item>
         <el-form-item>
           <el-button
-            icon="el-icon-arrow-left"
-            size="mini"
-            @click="player.playlist.previous()"
-            circle></el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-button
-            icon="el-icon-arrow-right"
-            size="mini"
-            @click="player.playlist.next()"
-            circle></el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-button
             icon="el-icon-refresh-left"
             size="mini"
             @click="backward()"
@@ -56,12 +42,26 @@
           </el-dropdown>
         </el-form-item>
 
-        <el-form-item>
+        <el-form-item v-show="hasList">
+          <el-button
+            icon="el-icon-arrow-left"
+            size="mini"
+            @click="player.playlist.previous()"
+            circle></el-button>
+        </el-form-item>
+        <el-form-item v-show="hasList">
+          <el-button
+            icon="el-icon-arrow-right"
+            size="mini"
+            @click="player.playlist.next()"
+            circle></el-button>
+        </el-form-item>
+        <el-form-item v-show="hasList">
           <el-switch
             v-model="replayCurrent">
           </el-switch> Loop
         </el-form-item>
-        <el-form-item>
+        <el-form-item v-show="hasList">
           <el-switch
             v-model="shuffledList">
           </el-switch> Random
@@ -97,7 +97,10 @@ export default {
     },
   },
   computed: {
-    ...mapState(["player"]),
+    ...mapState(["player", "playlist"]),
+    hasList() {
+      return this.playlist.length > 0
+    },
     replayCurrent: {
       get() {
         return this.$store.state.replayCurrent

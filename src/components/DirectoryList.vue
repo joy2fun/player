@@ -1,11 +1,14 @@
 <template>
   <div id="directories" class="directories">
-    <a class="folder"
+    <el-button class="folder"
+      @click="loadIndex(item.path)"
       v-for="(item, index) in directoryList"
       :key="index"
-      @click="loadIndex(item.path)">
-      <i class="el-icon-folder"></i> <span> {{item.name}} </span>
-    </a>
+      type="text"
+      size="small"
+      icon="el-icon-folder"
+      plain>{{ item.name }}
+    </el-button>
   </div>
 </template>
 
@@ -26,19 +29,23 @@ export default {
 <style scoped>
 .directories {
   margin-top: 6px;
+  max-height: 480px;
+  overflow-y: scroll;
 }
-.folder {
+
+.folder, .folder:hover, .folder:focus {
   display: block;
-  line-height: 2.5;
+  line-height: 2;
   border-top: 1px solid #eee8d5;
   border-bottom: 1px solid #eee8d5;
+  border-left: none;
+  border-right: none;
   margin-top: -1px;
-  padding-left: 6px;
-  cursor: pointer;
+  padding-left: 10px;
+  margin-left: 0;
+  width: 100%;
+  text-align: left;
+  padding-left: 10px;
   color: #555;
-}
-.folder:hover {
-  background: #eee8d5;
-  opacity: .8;
 }
 </style>
