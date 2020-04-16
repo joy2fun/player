@@ -18,6 +18,7 @@ import {
   Slider,
   Link,
   Input,
+  Message,
 } from 'element-ui';
 
 import '@/assets/style/theme/index.css'
@@ -37,6 +38,8 @@ Vue.use(Col);
 Vue.use(Slider);
 Vue.use(Link);
 Vue.use(Input);
+
+Vue.prototype.$message = Message;
 
 Vue.config.productionTip = false
 

@@ -14,7 +14,6 @@
             <el-button
               type="primary"
               native-type="submit"
-              @click="login"
               plain>登录
             </el-button>
           </el-form-item>
@@ -60,7 +59,10 @@ export default {
     ...mapMutations(["setLoggedIn"]),
     login() {
       user.login(this.email, this.password)
-        .then(() => {localStorage.setItem('email', this.email)})
+        .then(() => {
+          localStorage.setItem('email', this.email)
+        })
+        .catch(() => this.$message.error('Login failed'))
       return false
     },
     logout() {
@@ -68,7 +70,6 @@ export default {
     }
   },
   mounted() {
-    this.setLoggedIn(sessionStorage.getItem("token") != "")
   }
 };
 </script>

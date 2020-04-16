@@ -20,8 +20,9 @@ export default {
           return Promise.reject('failed')
         }
       })
-      .catch(() => {
+      .catch(e => {
         sessionStorage.setItem('token', '')
+        return Promise.reject(e)
       })
   },
   logout(){

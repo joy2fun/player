@@ -45,7 +45,7 @@ export default {
 <style scoped>
 .files {
   margin-top: 6px;
-  height: 480px;
+  max-height: 480px;
   overflow-y: scroll;
 }
 .current {
