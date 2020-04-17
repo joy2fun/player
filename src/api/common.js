@@ -6,5 +6,14 @@ export default {
   },
   index(path) {
     return request.get(path ? '/api/index/' + path : '/api/index')
+  },
+  links() {
+    return request.get('/api/links')
+  },
+  createLink(title, url) {
+    return request.post('/api/links', {
+      title,
+      url,
+    })
   }
 }

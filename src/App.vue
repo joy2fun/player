@@ -16,6 +16,13 @@
               size="mini"
               circle>
             </el-button>
+          </router-link> &nbsp;
+          <router-link to="/link">
+            <el-button
+              icon="el-icon-link"
+              size="mini"
+              circle>
+            </el-button>
           </router-link>
         </div>
         <player-control style="float:right; height: 50px; ovflow:hidden;" />

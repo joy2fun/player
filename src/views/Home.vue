@@ -67,6 +67,9 @@ export default {
     },
     logout() {
       user.logout()
+    },
+    openUrl() {
+      window.open('https://mapi.css.js.cn/')
     }
   },
   mounted() {
