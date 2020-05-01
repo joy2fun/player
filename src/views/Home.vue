@@ -39,6 +39,7 @@
 
 <script>
 import user from '@/api/user'
+import index from '@/api/index'
 
 /* eslint-disable no-unused-vars */
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
@@ -68,11 +69,9 @@ export default {
     logout() {
       user.logout()
     },
-    openUrl() {
-      window.open('https://mapi.css.js.cn/')
-    }
   },
   mounted() {
+    index.list('ActualEnglish/001-099').then(r => console.log(r));
   }
 };
 </script>

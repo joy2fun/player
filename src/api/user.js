@@ -12,16 +12,16 @@ export default {
     })
       .then(r => {
         if (r.data.access_token) {
-          sessionStorage.setItem('token', r.data.access_token)
+          localStorage.setItem('token', r.data.access_token)
           store.commit('setLoggedIn', true)
           return Promise.resolve(r)
         } else {
-          sessionStorage.setItem('token', '')
+          localStorage.setItem('token', '')
           return Promise.reject('failed')
         }
       })
       .catch(e => {
-        sessionStorage.setItem('token', '')
+        localStorage.setItem('token', '')
         return Promise.reject(e)
       })
   },
@@ -36,15 +36,15 @@ export default {
     return request.post('/auth/refresh')
       .then(r => {
         if (r.data.access_token) {
-          sessionStorage.setItem('token', r.data.access_token)
+          localStorage.setItem('token', r.data.access_token)
           return Promise.resolve(r)
         } else {
-          sessionStorage.setItem('token', '')
+          localStorage.setItem('token', '')
           return Promise.reject('failed')
         }
       })
       .catch(() => {
-        sessionStorage.setItem('token', '')
+        localStorage.setItem('token', '')
       })
   },
 }

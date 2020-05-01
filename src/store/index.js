@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import common from '@/api/common'
+import index from '@/api/index'
 
 Vue.use(Vuex)
 
@@ -35,7 +35,7 @@ export default new Vuex.Store({
     setLoggedIn(state, v) {
       state.loggedIn = v
       if (! v) {
-        sessionStorage.setItem('token', '')
+        localStorage.setItem('token', '')
       }
     },
     setupPlayer(state, player) {
@@ -79,7 +79,11 @@ export default new Vuex.Store({
       }
     },
     updatePlaylist(state, {data, index}) {
-      state.playlist = data
+      state.playlist = data.map(item => {
+        if (item.src.indexOf('?token=') === -1)
+          item.src += '?token=' + localStorage.getItem('token')
+        return item
+      })
       state.player.playlist(data.map(item => {
         return {
           sources : [item]
@@ -90,7 +94,7 @@ export default new Vuex.Store({
       }
     },
     updateNavIndex(state, {dirs, files, path}) {
-      state.currentNavPath = path.replace(/^\/+/, '')
+      state.currentNavPath = path
       state.directoryList = dirs
       state.fileList = files
     },
@@ -101,16 +105,18 @@ export default new Vuex.Store({
   },
   actions: {
     loadPlaylistFromIndex({ commit }, path) {
-      common.index(path).then(r => {
-        commit('updatePlaylist', r.data.files)
+      index.list(path).then(r => {
+        commit('updatePlaylist', r.files)
       })
     },
     loadIndex({ commit }, path) {
-      common.index(path).then(r => {
+      path = path.replace(/^[/]+/, '')
+      index.list(path).then(r => {
+        console.log(path)
         commit('updateNavIndex', {
-          dirs: r.data.lists,
-          files: r.data.files,
-          path
+          dirs: r.dirs,
+          files: r.files,
+          path,
         })
       })
     }

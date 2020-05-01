@@ -42,6 +42,11 @@
 </template>
 
 <script>
+import user from '@/api/user'
+
+/* eslint-disable no-unused-vars */
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+/* eslint-enable no-unused-vars */
 import VideoPlayer from "@/components/VideoPlayer.vue";
 import PlayerControl from "@/components/PlayerControl.vue";
 
@@ -50,6 +55,15 @@ export default {
     VideoPlayer,
     PlayerControl,
   },
+  mounted() {
+    if (localStorage.getItem('token')) {
+      user.info()
+        .then(() => this.setLoggedIn(true))
+    }
+  },
+  methods: {
+    ...mapMutations(["setLoggedIn"])
+  }
 }
 </script>
 

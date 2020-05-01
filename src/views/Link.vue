@@ -11,7 +11,7 @@
         plain>{{ item.title ? item.title : item.url }}
       </el-button>
     </div>
-    <div class="link-new">
+    <div class="link-new" v-show="!homeTV">
       <el-form size="small" @submit.native.prevent="create">
         <el-form-item>
           <el-input v-model="link" placeholder="https://" size="small"></el-input>
@@ -41,6 +41,7 @@ export default {
       title: '',
       link: 'https://',
       list: [],
+      homeTV: process.env.VUE_APP_UI_MODE === 'home-tv',
     }
   },
   mounted() {
