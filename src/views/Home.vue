@@ -39,7 +39,6 @@
 
 <script>
 import user from '@/api/user'
-import index from '@/api/index'
 
 /* eslint-disable no-unused-vars */
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
@@ -71,7 +70,6 @@ export default {
     },
   },
   mounted() {
-    index.list('ActualEnglish/001-099').then(r => console.log(r));
   }
 };
 </script>

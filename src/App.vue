@@ -55,10 +55,28 @@ export default {
     VideoPlayer,
     PlayerControl,
   },
+  data() {
+    return {
+      timerId: 0
+    }
+  },
   mounted() {
     if (localStorage.getItem('token')) {
       user.info()
-        .then(() => this.setLoggedIn(true))
+        .then(() => {
+          this.setLoggedIn(true)
+          // check token expiration and refresh
+          if (this.timerId) {
+            clearInterval(this.timerId)
+          }
+          this.timerId = setInterval(() => {
+            const ttl = user.getTokenTTL()
+            if (ttl < 1800) {
+              user.refresh()
+            }
+            console.log("token ttl: " + ttl)
+          }, 60 * 1000)
+        })
     }
   },
   methods: {

@@ -1,5 +1,6 @@
 <template>
   <div class="link">
+    <div class="nav">Links</div>
     <div class="link-list">
       <el-button
         class="item"
