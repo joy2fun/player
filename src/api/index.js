@@ -35,6 +35,7 @@ export default {
               type: mimetypes.getMimetype(item.name),
             }
           })
+          .filter(item => item.type != '') // filter out non-media files
         return Promise.resolve({
           dirs,
           files,

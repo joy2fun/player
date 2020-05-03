@@ -55,7 +55,9 @@ export default new Vuex.Store({
         } else {
           player.fluid(true)
         }
-        if(player.currentType().indexOf('audio') === 0) {
+        if(player.currentType().indexOf('audio') === 0
+          && player.src().indexOf('5s-silence.mp3') === -1
+        ) {
           player.poster('/images/poster-audio.jpg')
         }
       })
@@ -80,13 +82,23 @@ export default new Vuex.Store({
     },
     updatePlaylist(state, {data, index}) {
       state.playlist = data.map(item => {
-        if (item.src.indexOf('?token=') === -1)
-          item.src += '?token=' + localStorage.getItem('token')
+        const token = localStorage.getItem('token')
+        if (token && item.src.indexOf('?token=') === -1) {
+          item.src += '?token=' + token
+        }
         return item
       })
       state.player.playlist(data.map(item => {
-        return {
-          sources : [item]
+        if (item.type.indexOf('image') !== -1) {
+          const poster = item.src
+          item.src = '/audio/5s-silence.mp3'
+          item.type = 'audio/mpeg'
+          return {
+            sources : [item],
+            poster
+          }
+        } else {
+          return {sources : [item]}
         }
       }), index)
       if (state.shuffledList) {

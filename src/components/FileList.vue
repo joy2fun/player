@@ -2,7 +2,9 @@
   <div id="files" class="files">
     <el-button class="item"
       :class="{
-        'current': player.src() === item.src,
+        'current': player.src().indexOf('5s-silence.mp3') === -1
+          ? player.src() === item.src
+          : player.poster().indexOf(item.name) !== -1,
       }"
       @click="playListFromIndex(index, item.src)"
       v-for="(item, index) in fileList"
