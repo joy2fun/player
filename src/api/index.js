@@ -29,10 +29,13 @@ export default {
           })
         let files = r.data.filter(item => item.type === 'file')
           .map(item => {
+            const type = mimetypes.getMimetype(item.name)
+            const src = item.src || (prefix + path + '/' + item.name)
             return {
               name: item.name,
-              src: item.src || (prefix + path + '/' + item.name),
-              type: mimetypes.getMimetype(item.name),
+              src,
+              type,
+              poster: type.indexOf('image') !== -1 ? src : ''
             }
           })
           .filter(item => item.type != '') // filter out non-media files

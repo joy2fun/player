@@ -88,17 +88,22 @@ export default new Vuex.Store({
         }
         return item
       })
+      let imageCount = 0
+      console.log(data)
       state.player.playlist(data.map(item => {
         if (item.type.indexOf('image') !== -1) {
-          const poster = item.src
-          item.src = '/audio/5s-silence.mp3'
+          const poster = item.poster
+          item.src = '/audio/5s-silence.mp3?i=' + imageCount ++
           item.type = 'audio/mpeg'
           return {
             sources : [item],
             poster
           }
         } else {
-          return {sources : [item]}
+          return {
+            sources : [item],
+            poster: item.poster
+          }
         }
       }), index)
       if (state.shuffledList) {
